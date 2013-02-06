@@ -1,0 +1,41 @@
+#Joseph Kurtz
+#CS328 Assignment 1
+#Feb 4, 2013
+#An example makefile
+
+FLAGS= -w -Wall -s -pedantic-errors
+
+default: all
+
+all: driver
+
+
+driver: signal.o parser.o tokenlist.o token.o enTokens.o Amatrix.o Avector.o scanner.o enChar.o
+	g++ -c poop.cpp
+Amatrix.o: Avector.o signal.o
+
+
+Avector.o: 
+
+enChar.o: 
+
+enTokens.o:
+
+parser.o: tokenlist.o token.o enTokens.o Amatrix.o Avector.o
+	g++ -c parser.cpp
+scanner.o: enChar.o tokenlist.o token.o enTokens.o
+	g++ -c scanner.cpp
+
+signal.o:
+	g++ -c signal.cpp
+
+token.o: enTokens.o
+	g++ -c token.cpp
+
+tokenlist.o: token.o enTokens.o
+	g++ -c tokenlist.cpp
+
+clean:
+	-@rm core > /dev/null 2>&1
+	-@rm *.o 2>&1
+	-@rm driver 2>&1
