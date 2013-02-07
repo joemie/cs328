@@ -4,15 +4,17 @@ default: all
 
 all: driver
 
-driver: driver.o parser.o
-	g++ driver.o parser.o -o driver
+driver: driver.o parser.o quat.o
+	g++ driver.o parser.o quat.o -o driver
 
-driver.o: driver.cpp parser.h
+driver.o: driver.cpp parser.h quat.h
 	g++ -c driver.cpp -o driver.o
 
 parser.o: parser.cpp parser.h
 	g++ -c parser.cpp -o parser.o
 
+quat.o: quat.cpp quat.h
+	g++ -c quat.cpp -o quat.o
 clean:
 #	-@rm core > /dev/null 2>&1
 	-@rm *.o 2>&1
