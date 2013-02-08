@@ -1,5 +1,5 @@
-#include "parser.h"
 #include "quat.h"
+#include "parser.h"
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -31,13 +31,20 @@ void Parser::parseFile(char* fileName)
     cout << "UNABLE TO OPEN FILE" << endl;
 }
 template<typename T>
-vector<T> Parser::test()
+vector<T> Parser::buildQuatVect(T var1, T var2, T var3, T var4)
 {
-  vector<int> temp;
+  vector<T> temp;
+  temp.push_back(var1);
+  temp.push_back(var2);
+  temp.push_back(var3);
+  temp.push_back(var4);
   return temp;
 }
 vector<string> Parser::parseLine(string curLine)
 {
+  #define INT 1
+  #define FLOAT 2
+  #define DOUBLE 3
   size_t p0 = 0;
   size_t p1 = string::npos;
   vector<string> tokenized;
@@ -51,7 +58,11 @@ vector<string> Parser::parseLine(string curLine)
     }
     p0 = curLine.find_first_not_of(" ", p1);
   }
-  test()
+  //determine type
+  ParseQuat<int> pq;
+  pq.setQuat(1,2,3,4);
+
+  buildQuatVect(1,2,3,4);
   return tokenized;
 }
 int Parser::getNumQuats()
@@ -65,4 +76,16 @@ int Parser::getLineNum()
 vector<vector<string> > Parser::getQuatVect()
 {
   return m_quatVect;
+}
+template<class T> 
+void Parser::ParseQuat<T>::setQuat(T var1, T var2, T var3, T var4)
+{
+  Quat<T> hello(var1, var2, var3, var4);
+  m_quat = hello;
+
+}
+template<class T>
+Quat<T> Parser::ParseQuat<T>::getQuat()
+{
+  return m_quat;
 }

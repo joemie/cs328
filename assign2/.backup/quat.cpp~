@@ -1,5 +1,4 @@
 #include "quat.h"
-
 template<class T>
 Quat<T>::Quat()
 {
@@ -15,12 +14,6 @@ Quat<T>::Quat(T uCoef, T iCoef, T jCoef, T kCoef)
   m_iCoef = iCoef;
   m_jCoef = jCoef;
   m_kCoef = kCoef;
-}
-template<class T>
-vector<T> Quat<T>::parseStringVect(vector<string> sQuatVect)
-{
-  vector<int> temp;
-  return temp;
 }
 template<class T>
 float Quat<T>::mag(T uCoef, T iCoef, T jCoef, T kCoef)

@@ -2,6 +2,9 @@
 #define QUAT
 #include <vector>
 #include <string>
+#include <sstream>
+#include <math.h>
+#include <iostream>
 using namespace std;
 template<class T>
 class Quat
@@ -15,8 +18,17 @@ class Quat
   public:
     Quat();
     Quat(T uCoef, T iCoef, T jCoef, T kCoef);
-    vector<T> parseStringVect(vector<string> sQuatVect);
-    float mag(T uCoef, T iCoef, T jCoef, T kCoef);
-
+    Quat(Quat<T>& copyQuat);
+    ~Quat();
+    Quat<T>& operator=(const Quat<T> &copyQuat);
+    Quat<T> operator+(const Quat<T> &quat2) const;
+    Quat<T> operator-(const Quat<T> &quat2) const;
+    Quat<T>& operator+=(const Quat<T> &quat2);
+    Quat<T>& operator-=(const Quat<T> &quat2);
+    bool operator==(const Quat<T> &quat2) const;
+    bool operator!=(const Quat<T> &quat2) const;
+    float mag(T uCoef, T iCoef, T jCoef, T kCoef) const;
+    string toString();
 };
+#include "quat.hpp"
 #endif //QUAT
