@@ -5,6 +5,7 @@
 #include <sstream>
 #include <math.h>
 #include <iostream>
+#include "indexOutOfRangeError.h"
 using namespace std;
 template<class T>
 class Quat
@@ -27,6 +28,11 @@ class Quat
     Quat<T>& operator-=(const Quat<T> &quat2);
     bool operator==(const Quat<T> &quat2) const;
     bool operator!=(const Quat<T> &quat2) const;
+    Quat<T> operator-() const;
+    Quat<T> operator*(const Quat<T> &quat2) const;
+    T operator[](const unsigned int index);
+    Quat<T> operator!();
+    float operator~();
     float mag(T uCoef, T iCoef, T jCoef, T kCoef) const;
     string toString();
 };
