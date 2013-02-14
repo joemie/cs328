@@ -30,11 +30,14 @@ class Quat
     bool operator!=(const Quat<T> &quat2) const;
     Quat<T> operator-() const;
     Quat<T> operator*(const Quat<T> &quat2) const;
+    Quat<T> operator/(const Quat<T> &quat2) const;
     T operator[](const unsigned int index);
     Quat<T> operator!();
     float operator~();
+    template<class U>
+    friend ostream& operator<<(ostream& os, const Quat<U>& quat);
     float mag(T uCoef, T iCoef, T jCoef, T kCoef) const;
-    string toString();
+    Quat<T> inverse();
 };
 #include "quat.hpp"
 #endif //QUAT

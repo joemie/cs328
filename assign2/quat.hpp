@@ -65,10 +65,10 @@ Quat<T> Quat<T>::operator-(const Quat<T> &quat2) const
 template<class T>
 Quat<T>& Quat<T>::operator+=(const Quat<T> &quat2)
 {
-  m_uCoef = m_uCoef + quat2.m_uCoef;
-  m_iCoef = m_iCoef + quat2.m_iCoef;
-  m_jCoef = m_jCoef + quat2.m_jCoef;
-  m_kCoef = m_kCoef + quat2.m_kCoef;
+  m_uCoef += quat2.m_uCoef;
+  m_iCoef += quat2.m_iCoef;
+  m_jCoef += quat2.m_jCoef;
+  m_kCoef += quat2.m_kCoef;
   m_magnitude = mag(m_uCoef, m_iCoef, m_jCoef, m_kCoef);
   return *this;
 }
@@ -113,15 +113,27 @@ Quat<T> Quat<T>::operator*(const Quat<T> &quat2) const
   return retQuat; 
 }
 template<class T>
+Quat<T> Quat<T>::operator/(const Quat<T> &quat2) const
+{
+  //TODO
+}
+template<class T>
 T Quat<T>::operator[](const unsigned int index)
 {
-  switch(index)
+  try
   {
-    case 0: return m_uCoef;
-    case 1: return m_iCoef;
-    case 2: return m_jCoef;
-    case 3: return m_kCoef;
-    default: throw IndexOutOfRangeError(index); 
+    switch(index)
+    {
+      case 0: return m_uCoef;
+      case 1: return m_iCoef;
+      case 2: return m_jCoef;
+      case 3: return m_kCoef;
+      default: throw IndexOutOfRangeError(index); 
+    }
+  }
+  catch(IndexOutOfRangeError e)
+  {
+    cerr << "INDEX OUT OF RANGE: " << e.getIndex() << endl;
   }
 }
 template<class T>
@@ -140,15 +152,16 @@ float Quat<T>::operator~()
   return mag(m_uCoef, m_iCoef, m_jCoef, m_kCoef);
 }
 template<class T>
+ostream& operator<<(ostream& os, const Quat<T>& quat)
+{
+  os << quat.m_uCoef;
+  os << ((quat.m_iCoef < 0) ? " - " : " + ") << fabs(quat.m_iCoef) << "i";
+  os << ((quat.m_jCoef < 0) ? " - " : " + ") << fabs(quat.m_jCoef) << "j";
+  os << ((quat.m_kCoef < 0) ? " - " : " + ") << fabs(quat.m_kCoef) << "k";
+  os << "\tmagnitude: " << quat.m_magnitude;
+}
+template<class T>
 float Quat<T>::mag(T uCoef, T iCoef, T jCoef, T kCoef) const
 {
   return sqrt(uCoef*uCoef + iCoef*iCoef + jCoef*jCoef + kCoef*kCoef);
 }
-template<class T>
-string Quat<T>::toString()
-{
-  stringstream ss (stringstream::in | stringstream::out);
-  ss << "u: " << m_uCoef << " i: " << m_iCoef << " j: " << m_jCoef << " k: " << m_kCoef << " mag: " << m_magnitude << "\n";
-  return ss.str();
-}
-

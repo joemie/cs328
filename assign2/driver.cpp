@@ -12,6 +12,8 @@ int main()
   vector<vector<string> > sQuatVect = parsing.getQuatVect();
   Quat<int> quat1(1,2,3,4);
   Quat<int> quat2(2,2,2,2);
+  quat1 += quat2;
+  cout << quat1 << endl;
   for(int i = 0; i < sQuatVect.size(); i++)
   {
     for(int j = 0; j < sQuatVect[i].size(); j++)
